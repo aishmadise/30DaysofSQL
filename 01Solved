@@ -1,0 +1,31 @@
+1. Revising the Select Query I
+
+SELECT * 
+FROM CITY 
+WHERE POPULATION > 100000
+AND COUNTRYCODE LIKE '%USA%'
+
+2. Revising the Select Query II
+
+SELECT NAME 
+FROM CITY 
+WHERE POPULATION >120000
+AND COUNTRYCODE LIKE 'USA'
+
+3. Select All
+
+SELECT * 
+FROM CITY 
+
+4. Select By ID
+
+SELECT * 
+FROM CITY 
+WHERE ID = 1661 
+
+5. Japanese Cities' Attributes
+
+SELECT * 
+FROM CITY 
+WHERE COUNTRYCODE LIKE 'JPN'
+
