@@ -1,0 +1,35 @@
+1. Japanese Cities' Names
+
+SELECT NAME 
+FROM CITY 
+WHERE COUNTRYCODE LIKE 'JPN'
+
+2. Weather Observation Station 1
+
+SELECT CITY,STATE 
+FROM STATION 
+
+3. Weather Observation Station 3
+
+SELECT DISTINCT CITY 
+FROM STATION 
+WHERE ID%2=0
+
+4. Weather Observation Station 4
+
+SELECT COUNT(CITY)- COUNT(DISTINCT CITY)
+FROM STATION 
+
+4. Weather Observation Station 5
+
+SELECT CITY,
+LENGTH(CITY)
+FROM STATION 
+WHERE char_length(CITY) = (SELECT max(char_length(CITY))FROM STATION);
+SELECT CITY,
+LENGTH(CITY)
+FROM STATION 
+WHERE char_length(CITY)= (SELECT min(char_length(CITY))FROM STATION)
+ORDER BY CITY ASC
+LIMIT 1
+
