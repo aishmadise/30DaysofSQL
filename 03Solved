@@ -1,0 +1,39 @@
+The following questions were on various usages of the RLIKE, NOT RLIKE, and REVERSE operators, something I'm learning for the first time and were very useful!
+
+1. Weather Observation Station 6
+
+SELECT DISTINCT CITY 
+FROM STATION 
+WHERE CITY LIKE 'A%' OR CITY LIKE'E%' OR CITY LIKE'I%' OR CITY LIKE'O%' OR CITY LIKE'U%'  
+ 
+Comments: This code worked but it seemed very long and an ineffective way to solve this problem. After going through w3resource website,
+I figured an easier way to solve this: 
+
+SELECT DISTINCT CITY
+FROM STATION 
+WHERE CITY RLIKE '^[aeiou]'
+
+2. Weather Observation Station 7
+
+SELECT DISTINCT CITY
+FROM STATION 
+WHERE REVERSE(CITY) RLIKE '^[aeiou]'
+
+3. Weather Observation Station 8
+
+SELECT CITY 
+FROM STATION 
+WHERE CITY RLIKE '^[AEIOU]'
+AND REVERSE(CITY) RLIKE '^[aeiou]'
+
+4. Weather Observation Station  9
+
+SELECT DISTINCT CITY 
+FROM STATION 
+WHERE CITY NOT RLIKE '^[AEIOU]'
+
+5. Weather Observation Station 10
+
+SELECT DISTINCT CITY 
+FROM STATION 
+WHERE REVERSE(CITY) NOT RLIKE '^[aeiou]'
