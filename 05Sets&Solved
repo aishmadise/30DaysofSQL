@@ -1,0 +1,45 @@
+1. https://www.hackerrank.com/challenges/revising-aggregations-the-count-function/
+
+SELECT count(NAME)
+FROM CITY
+WHERE POPULATION>100000
+
+2. https://www.hackerrank.com/challenges/revising-aggregations-sum/
+
+SELECT SUM(POPULATION)
+FROM CITY 
+WHERE DISTRICT LIKE 'Cali%'
+
+3. https://www.hackerrank.com/challenges/average-population/
+
+SELECT ROUND(AVG(POPULATION),0)
+FROM CITY 
+
+4. https://leetcode.com/problems/second-highest-salary/
+
+SELECT salary as SecondHighestSalary
+FROM
+(
+SELECT id,
+    salary,
+    DENSE_RANK() OVER (ORDER BY salary Desc) AS rowno
+FROM Employee 
+) sub
+WHERE rowno = 2
+
+5. https://leetcode.com/problems/nth-highest-salary/
+
+CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
+BEGIN
+  RETURN (
+      SELECT salary as getNthHighestSalary 
+      FROM 
+      (SELECT id,
+            salary,
+            DENSE_RANK() OVER (ORDER BY salary Desc) AS rowno
+       FROM Employee 
+      )sub
+      WHERE sub.rowno = N
+      
+  );
+END
