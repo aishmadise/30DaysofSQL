@@ -1,0 +1,39 @@
+1. https://leetcode.com/problems/rank-scores/
+
+SELECT score,
+    DENSE_RANK() OVER (ORDER BY score DESC) AS 'rank'
+FROM Scores 
+
+2. https://leetcode.com/problems/consecutive-numbers/
+
+select DISTINCT l1.Num as ConsecutiveNums
+from Logs l1, Logs l2, Logs l3
+where l2.Id = l1.Id+1 and l3.Id = l2.Id + 1 and l1.Num = l2.Num and l2.Num = l3.Num
+
+3. https://leetcode.com/problems/department-highest-salary/
+
+SELECT Department,Employee,Salary
+
+FROM (
+
+    SELECT Department.name AS 'Department',Employee.name AS 'Employee',Employee.salary AS 'Salary', 
+    DENSE_RANK() OVER (PARTITION BY Department.name ORDER BY Employee.salary DESC) AS rn 
+     FROM Employee
+     LEFT JOIN Department ON Employee.departmentId = Department.id ) sub 
+     
+WHERE rn = 1
+
+4. https://leetcode.com/problems/department-top-three-salaries/
+
+SELECT Department,Employee,Salary
+
+FROM (
+
+    SELECT Department.name AS 'Department',Employee.name AS 'Employee',Employee.salary AS 'Salary', 
+    DENSE_RANK() OVER (PARTITION BY Department.name ORDER BY Employee.salary DESC) AS rn 
+     FROM Employee
+     LEFT JOIN Department ON Employee.departmentId = Department.id ) sub 
+     
+WHERE rn < 4
+
+
