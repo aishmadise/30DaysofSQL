@@ -38,4 +38,28 @@ SELECT worker_title
 FROM title 
 WHERE worker_ref_id IN (SELECT worker_id FROM worker WHERE salary = (SELECT max(salary) FROM worker))
 
-3. 
+3. https://platform.stratascratch.com/coding/10352-users-by-avg-session-time
+
+My Answer: 
+SELECT a.user_id, 
+    AVG(b.ended - a.started) AS avg_session
+FROM 
+(SELECT  user_id, 
+        DATE(timestamp) AS date,
+        MAX(timestamp) AS started
+    FROM facebook_web_log
+    WHERE action = 'page_load'
+    GROUP BY user_id, DATE(timestamp)) a
+
+INNER JOIN 
+    
+(SELECT  user_id, 
+        DATE(timestamp) AS date,
+        MIN(timestamp) AS ended
+    FROM facebook_web_log
+    WHERE action = 'page_exit'
+    GROUP BY user_id, DATE(timestamp))  b
+    
+ON a.user_id = b.user_id
+GROUP BY a.user_id
+    
