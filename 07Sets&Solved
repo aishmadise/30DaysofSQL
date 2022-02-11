@@ -1,0 +1,41 @@
+Q1. https://platform.stratascratch.com/coding/10285-acceptance-rate-by-date 
+
+My Answer: 
+SELECT a.date,
+count(b.user_id_receiver)/count(a.user_id_receiver) as acceptance_rate
+FROM
+  (SELECT date, user_id_sender,
+                user_id_receiver
+   FROM fb_friend_requests
+   WHERE action='sent' ) a
+LEFT JOIN
+  (SELECT date, user_id_sender,
+                user_id_receiver
+   FROM fb_friend_requests
+   WHERE action='accepted' ) b ON a.user_id_sender=b.user_id_sender
+AND a.user_id_receiver=b.user_id_receiver
+GROUP BY a.date
+ORDER BY a.date DESC
+
+
+
+Q2. https://platform.stratascratch.com/coding/10353-workers-with-the-highest-salaries
+
+My Answer: 
+
+SELECT b.worker_title
+FROM worker a 
+INNER JOIN title b 
+on a.worker_id = b.worker_ref_id
+WHERE salary IN (SELECT MAX(salary) FROM worker)
+
+Few comments: I noticed that in the solution for this question uses case when which is not necessary but good to know. However, I really like someone's solution I came 
+across where you dont have to use joins to arrive at the right answer. I'm not sure if it improves performance though.  
+
+ALternate answer: 
+
+SELECT worker_title 
+FROM title 
+WHERE worker_ref_id IN (SELECT worker_id FROM worker WHERE salary = (SELECT max(salary) FROM worker))
+
+3. 
